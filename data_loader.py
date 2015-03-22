@@ -25,6 +25,8 @@ def load_genomes():
     runner.run(command)
 
 def compute_jf_for_tsa(settings):
+    """ Compute jf files for tsa datasets.
+    """
     folder_tsa = settings["folder_tsa"]
     print folder_tsa
     for file_name in sc_iter_filepath_folder(folder_tsa):
@@ -39,6 +41,8 @@ def compute_jf_for_tsa(settings):
         runner.run(command)
 
 def compute_jf_for_wgs(settings):
+    """ Compute jf files for wgs datasets.
+    """
     folder = settings["folder_wgs"]
     print folder
     tasks = defaultdict(list)
@@ -59,6 +63,8 @@ def compute_jf_for_wgs(settings):
         runner.run(command)
 
 def compute_jf_for_genomes_pro(settings):
+    """ Compute jf files for prokaryotics genomes.
+    """
     folder = settings["folder_genomes_pro"]
     print folder
     for file_name in sc_iter_filepath_folder(folder):
@@ -72,33 +78,34 @@ def compute_jf_for_genomes_pro(settings):
         command = "/home/akomissarov/libs/jellyfish-2.2.0/bin/jellyfish count -m 23 -t 20 -s 10G -C -o %s %s" % (output_file, file_name)
         runner.run(command)
 
-if __name__ == '__main__':
 
+def compute_jf_for_genome_eu(settings):
+    """ Compute jf files for eukaryotics genomes.
     
-    '''
+    Information from NCBI README:
 
-vertebrates_mammals/Homo_sapiens/HuRef
+    vertebrates_mammals/Homo_sapiens/HuRef
 
-Each assembly-unit directory will also contain one or more of the 
-following directories (depending on the particular assembly):
-     assembled_chromosomes/
-     placed_scaffolds/
-     unlocalized_scaffolds/
-     unplaced_scaffolds/
-     alt_scaffolds/ (only in alternate loci and patch assembly-units)
-     pseudoautosomal_region/ (only for mammmals)
+    Each assembly-unit directory will also contain one or more of the 
+    following directories (depending on the particular assembly):
+         assembled_chromosomes/
+         placed_scaffolds/
+         unlocalized_scaffolds/
+         unplaced_scaffolds/
+         alt_scaffolds/ (only in alternate loci and patch assembly-units)
+         pseudoautosomal_region/ (only for mammmals)
 
+        ----------------------------------
+    Files containing genomic sequences
     ----------------------------------
-Files containing genomic sequences
-----------------------------------
-FILENAME                         CONTENT
-chr?.fa.gz                       chromosome sequence
-chr?.placed.scaf.fa.gz           placed scaffold sequences
-chr?.unlocalized.scaf.fa.gz      unlocalized scaffold sequences
-unplaced.scaf.fa.gz              unplaced scaffold sequences
-alt.scaf.fa.gz                   alternate loci or patch scaffold 
-                                 sequences
-    '''
+    FILENAME                         CONTENT
+    chr?.fa.gz                       chromosome sequence
+    chr?.placed.scaf.fa.gz           placed scaffold sequences
+    chr?.unlocalized.scaf.fa.gz      unlocalized scaffold sequences
+    unplaced.scaf.fa.gz              unplaced scaffold sequences
+    alt.scaf.fa.gz                   alternate loci or patch scaffold 
+                                     sequences
+    """
 
     folder = settings["folder_genomes_eu"]
     print folder
@@ -141,5 +148,8 @@ alt.scaf.fa.gz                   alternate loci or patch scaffold
         print file_name
         command = "/home/akomissarov/libs/jellyfish-2.2.0/bin/jellyfish count -m 23 -t 40 -s 15G -C -o %s %s" % (output_file, file_name)
         runner.run(command)
+        
 
-    
+if __name__ == '__main__':
+    pass
+
