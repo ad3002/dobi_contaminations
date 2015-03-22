@@ -49,11 +49,10 @@ def compute_jf_for_wgs(settings):
     print folder
     tasks = defaultdict(list)
     for file_name in sc_iter_filepath_folder(folder):
-        print file_name
         if not "fsa_nt" in file_name:
             continue
-        items = file_name.split(".")
-        output_file = "wgs.%s.fsa_nt.23.jf" % items[1]
+        items = file_name.split("/")[-1].split(".")
+        output_file = os.path.join(folder, "wgs.%s.fsa_nt.23.jf" % items[1])
         tasks[output_file].append(file_name)
 
     for output_file, files in tasks.items():
@@ -159,5 +158,6 @@ def compute_jf_for_genome_eu(settings):
 
 
 if __name__ == '__main__':
-    pass
+    
+    compute_jf_for_wgs(settings)
 
