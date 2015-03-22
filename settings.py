@@ -10,4 +10,5 @@ settings = {
 	"folder_wgs": "/mnt/gonduras/akomissarov/wgs/wgs",
 	"folder_genomes_eu": "/mnt/guatemala/akomissarov/ncbi/genomes/Eukaryotes",
 	"folder_genomes_pro": "/mnt/guatemala/akomissarov/ncbi/genomes/Bacteria",
+	"jf_path": "/home/akomissarov/libs/jellyfish-2.2.0/bin/jellyfish",
 }

@@ -37,7 +37,9 @@ def compute_jf_for_tsa(settings):
         if os.path.isfile(output_file):
             print "File exists", output_file
             continue
-        command = "/home/akomissarov/libs/jellyfish-2.2.0/bin/jellyfish count -m 23 -t 20 -s 5G -C -o %s %s" % (output_file, file_name)
+        command = "%s count -m 23 -t 40 -s 5G -C -o %s %s" % (settings["jf_path"],
+                                                               output_file, 
+                                                               file_name)
         runner.run(command)
 
 def compute_jf_for_wgs(settings):
@@ -59,7 +61,9 @@ def compute_jf_for_wgs(settings):
             print "File exists", output_file
             continue
         file_name = " ".join(files)
-        command = "/home/akomissarov/libs/jellyfish-2.2.0/bin/jellyfish count -m 23 -t 20 -s 10G -C -o %s %s" % (output_file, file_name)
+        command = "%s count -m 23 -t 40 -s 15G -C -o %s %s" % (settings["jf_path"],
+                                                               output_file, 
+                                                               file_name)
         runner.run(command)
 
 def compute_jf_for_genomes_pro(settings):
@@ -75,7 +79,9 @@ def compute_jf_for_genomes_pro(settings):
         if os.path.isfile(output_file):
             print "File exists", output_file
             continue
-        command = "/home/akomissarov/libs/jellyfish-2.2.0/bin/jellyfish count -m 23 -t 20 -s 10G -C -o %s %s" % (output_file, file_name)
+        command = "%s count -m 23 -t 40 -s 5G -C -o %s %s" % (settings["jf_path"],
+                                                               output_file, 
+                                                               file_name)
         runner.run(command)
 
 
@@ -146,9 +152,11 @@ def compute_jf_for_genome_eu(settings):
         file_name = " ".join(files)
         print output_file
         print file_name
-        command = "/home/akomissarov/libs/jellyfish-2.2.0/bin/jellyfish count -m 23 -t 40 -s 15G -C -o %s %s" % (output_file, file_name)
+        command = "%s count -m 23 -t 40 -s 15G -C -o %s %s" % (settings["jf_path"],
+                                                               output_file, 
+                                                               file_name)
         runner.run(command)
-        
+
 
 if __name__ == '__main__':
     pass
