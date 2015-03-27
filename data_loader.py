@@ -55,15 +55,18 @@ def compute_jf_for_wgs(settings):
         output_file = os.path.join(folder, "wgs.%s.fsa_nt.23.jf" % items[1])
         tasks[output_file].append(file_name)
 
+    commands = []
     for output_file, files in tasks.items():
         if os.path.isfile(output_file):
             print "File exists", output_file
             continue
         file_name = " ".join(files)
-        command = "%s count -m 23 -t 40 -s 15G -C -o %s %s" % (settings["jf_path"],
+        command = "%s count -m 23 -t 10 -s 5G -C -o %s %s" % (settings["jf_path"],
                                                                output_file, 
                                                                file_name)
-        runner.run(command)
+        commands.append(command)
+    
+    runner.run_asap(commands, cpu=10, mock=False)
 
 def compute_jf_for_genomes_pro(settings):
     """ Compute jf files for prokaryotics genomes.
