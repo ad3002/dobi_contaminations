@@ -86,6 +86,25 @@ def compute_jf_for_genomes_pro(settings):
                                                                file_name)
         runner.run(command)
 
+def get_genome_eu_files(settings):
+    """ Return jf_file to fasta files for eukaryotic genomes.
+    """
+    folder = settings["folder_genomes_eu"]
+    print folder
+    tasks = defaultdict(list)
+    for file_name in sc_iter_filepath_folder(folder):
+        if not ".fa." in file_name:
+            continue
+        if not "Primary" in file_name:
+            continue
+        genome_path = file_name.split(folder)[-1][1:]
+        section, taxon, assembly = genome_path.split("/")[:3]
+        # print section, taxon, assembly, file_name
+        output_file = os.path.join(folder, section, taxon, assembly, "primary_assembly.23.jf")
+        tasks[output_file].append(file_name)
+
+    return tasks
+
 
 def compute_jf_for_genome_eu(settings):
     """ Compute jf files for eukaryotics genomes.
@@ -115,19 +134,7 @@ def compute_jf_for_genome_eu(settings):
                                      sequences
     """
 
-    folder = settings["folder_genomes_eu"]
-    print folder
-    tasks = defaultdict(list)
-    for file_name in sc_iter_filepath_folder(folder):
-        if not ".fa." in file_name:
-            continue
-        if not "Primary" in file_name:
-            continue
-        genome_path = file_name.split(folder)[-1][1:]
-        section, taxon, assembly = genome_path.split("/")[:3]
-        # print section, taxon, assembly, file_name
-        output_file = os.path.join(folder, section, taxon, assembly, "primary_assembly.23.jf")
-        tasks[output_file].append(file_name)
+    tasks = get_genome_eu_files(settings)
 
     for output_file, files in tasks.items():
         if os.path.isfile(output_file):
